@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpendLens — Analyze your bank statement, privately | ToolWizHub</title>
+  <meta name="description" content="Drop in a bank statement (CSV, Excel, PDF, or Word) and SpendLens breaks it down by payment type and category, finds recurring payments, and charts your cash flow — 100% in your browser. Nothing is uploaded." />
+  <meta name="theme-color" content="#07070d" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://spendlens.toolwizhub.com/" />
+  <meta property="og:title" content="SpendLens — Analyze your bank statement, privately" />
+  <meta property="og:description" content="Segregate payment types, find subscriptions, and chart cash flow from any statement — 100% locally." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://spendlens.toolwizhub.com" />
+  <meta property="og:site_name" content="ToolWizHub" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "SpendLens",
+      "url": "https://spendlens.toolwizhub.com/",
+      "description": "Privacy-first bank-statement analyzer. Segregates payment types, categorizes spending, finds recurring payments, and charts cash flow — 100% in your browser.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "publisher": { "@type": "Organization", "name": "ToolWizHub", "url": "https://toolwizhub.com" }
+    }
+  </script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='88'%3E%F0%9F%92%B8%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    try { if (sessionStorage.getItem("spendlens:splashed")) document.documentElement.classList.add("no-splash"); } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="splash" id="splash" aria-hidden="true">
+    <div class="splash__stage">
+      <div class="splash__glow"></div>
+      <img class="splash__logo" src="assets/logo-icon.webp" alt="ToolWizHub" width="92" height="92" />
+      <div class="splash__tagline">SpendLens</div>
+      <div class="splash__bar"><span></span></div>
+    </div>
+  </div>
+
+  <header class="nav" id="nav">
+    <a class="nav__brand" href="https://toolwizhub.com" aria-label="ToolWizHub SpendLens">
+      <img src="assets/logo-icon.webp" alt="" width="34" height="34" />
+      <span>SpendLens</span>
+    </a>
+    <nav class="nav__links" id="nav-links">
+      <a href="#how">How it works</a>
+      <a href="https://github.com/sorapallivenkatesh" target="_blank" rel="noopener">GitHub</a>
+      <span class="nav__pill">All free · 100% local</span>
+    </nav>
+    <button class="nav__toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main class="main">
+    <section class="hero">
+      <span class="hero__eyebrow">🔒 100% in your browser · nothing uploaded</span>
+      <h1 class="hero__title">See where your money <span class="grad">actually goes</span>.</h1>
+      <p class="hero__sub">Drop in a bank statement — CSV, Excel, PDF, or Word. SpendLens segregates it by payment type and category, finds your recurring payments, and charts your cash flow. Your statement never leaves this page.</p>
+
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Upload a statement">
+        <div class="drop__ic">📄</div>
+        <div class="drop__t">Drop a statement here, or <span class="link">choose a file</span></div>
+        <div class="drop__h">CSV · Excel (.xlsx) · PDF · Word (.docx)</div>
+        <input type="file" id="file" accept=".csv,.tsv,.xlsx,.xls,.pdf,.docx,.doc" hidden />
+      </div>
+      <div class="hero__actions">
+        <button class="btn btn--ghost" id="sample">Try a sample statement</button>
+        <span class="privacy">🔒 Processed locally — no servers, no account.</span>
+      </div>
+      <p class="status" id="status" role="status"></p>
+
+    </section>
+
+    <div class="modal" id="pass-block" hidden>
+      <div class="modal__backdrop" data-close></div>
+      <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="pass-msg">
+        <button class="modal__x" id="pass-close" aria-label="Close" data-close>✕</button>
+        <div class="modal__ic">🔒</div>
+        <span class="pass__msg" id="pass-msg">This PDF is password-protected.</span>
+        <div class="pass__row">
+          <input id="pdf-pass" type="password" placeholder="PDF password" autocomplete="off" spellcheck="false" />
+          <button class="btn btn--primary" id="pdf-unlock">Unlock</button>
+        </div>
+        <span class="pass__hint">Decryption happens here in your browser — the password is never sent anywhere.</span>
+      </div>
+    </div>
+
+    <!-- results -->
+    <section id="results" hidden>
+      <div class="kpis">
+        <div class="kpi"><div class="kpi__num pos" id="sum-in">—</div><div class="kpi__lbl">money in</div></div>
+        <div class="kpi"><div class="kpi__num neg" id="sum-out">—</div><div class="kpi__lbl">money out</div></div>
+        <div class="kpi"><div class="kpi__num" id="sum-net">—</div><div class="kpi__lbl">net</div></div>
+        <div class="kpi"><div class="kpi__num" id="sum-count">—</div><div class="kpi__lbl">transactions</div></div>
+        <div class="kpi kpi--wide"><div class="kpi__num kpi__num--sm" id="sum-period">—</div><div class="kpi__lbl">period</div></div>
+      </div>
+
+      <div class="grid2">
+        <section class="card"><h2>By payment type</h2><div id="channels" class="bars"></div></section>
+        <section class="card"><h2>By category</h2><div id="categories" class="bars"></div></section>
+      </div>
+
+      <div class="grid2">
+        <section class="card"><h2>Recurring payments <span class="muted" id="recurring-count"></span></h2><div id="recurring" class="list"></div></section>
+        <section class="card"><h2>Top merchants</h2><div id="merchants" class="list"></div></section>
+      </div>
+
+      <section class="card"><h2>Monthly cash flow <span class="muted">in / out</span></h2><div id="trend" class="trend"></div></section>
+
+      <section class="card">
+        <div class="card__head">
+          <h2>Transactions <span class="muted" id="rowcount"></span></h2>
+          <div class="tools">
+            <input id="search" type="search" placeholder="Search…" />
+            <button class="btn btn--ghost" id="export-csv">Export CSV</button>
+            <button class="btn btn--ghost" id="export-json">Export JSON</button>
+            <button class="btn btn--ghost" id="clear-rules" title="Forget my category overrides">Reset categories</button>
+          </div>
+        </div>
+        <div class="table">
+          <div class="tr tr--head"><span>Date</span><span>Description</span><span>Type</span><span>Category</span><span class="td--amt">Amount</span></div>
+          <div id="rows"></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="section" id="how">
+      <h2 class="section__title">How it works</h2>
+      <div class="steps">
+        <div class="step"><span class="step__n">1</span><p>Export your statement from your bank (CSV/Excel are most reliable) or grab the PDF.</p></div>
+        <div class="step"><span class="step__n">2</span><p>Drop it above. SpendLens parses and categorizes it entirely in your browser.</p></div>
+        <div class="step"><span class="step__n">3</span><p>Explore the breakdown, fix any category (it remembers), and export a clean sheet.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img class="footer__logo" src="assets/logo-horizontal.webp" alt="ToolWizHub" />
+        <p>Free, no-signup web tools — privacy-first, open, and instant.</p>
+        <span class="footer__pill">All free · No signup</span>
+      </div>
+      <div class="footer__cols">
+        <div class="footer__col">
+          <h4>Tools</h4>
+          <a href="https://netlens.toolwizhub.com" target="_blank" rel="noopener">NetLens</a>
+          <a href="https://tickbox.toolwizhub.com" target="_blank" rel="noopener">Tickbox</a>
+          <a href="https://tax.toolwizhub.com" target="_blank" rel="noopener">Tax Calculator</a>
+          <a href="https://pii.toolwizhub.com" target="_blank" rel="noopener">PII Scanner</a>
+        </div>
+        <div class="footer__col">
+          <h4>Project</h4>
+          <a href="#how">How it works</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="https://toolwizhub.com" target="_blank" rel="noopener">ToolWizHub</a>
+          <a href="https://github.com/sorapallivenkatesh/toolwizhub-spendlens" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bar">
+      <span class="footer__copy">© <span id="year">2026</span> ToolWizHub · 100% local</span>
+      <span class="footer__made">Crafted with a bit of magic 🪄</span>
+    </div>
+  </footer>
+
+  <!-- vendored parsers (run locally; your data never leaves the page) -->
+  <script src="lib/xlsx.full.min.js"></script>
+  <script src="lib/pdf.min.js"></script>
+  <script src="lib/mammoth.browser.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

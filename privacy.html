@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — SpendLens | ToolWizHub</title>
+  <meta name="description" content="SpendLens runs 100% in your browser. Your bank statement is parsed locally — it collects nothing, sends nothing, and has no servers. Here's exactly what it does." />
+  <meta name="theme-color" content="#07070d" />
+  <link rel="canonical" href="https://spendlens.toolwizhub.com/privacy.html" />
+  <meta property="og:title" content="Privacy Policy — SpendLens" />
+  <meta property="og:description" content="SpendLens runs 100% locally — your statement never leaves your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://spendlens.toolwizhub.com/privacy.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='88'%3E%F0%9F%92%B8%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="nav" id="nav">
+    <a class="nav__brand" href="/" aria-label="SpendLens home">
+      <img src="assets/logo-icon.webp" alt="" width="34" height="34" />
+      <span>SpendLens</span>
+    </a>
+    <nav class="nav__links" id="nav-links">
+      <a href="/">← Back to SpendLens</a>
+      <a href="https://github.com/sorapallivenkatesh/toolwizhub-spendlens" target="_blank" rel="noopener">GitHub</a>
+      <span class="nav__pill">All free · 100% local</span>
+    </nav>
+    <button class="nav__toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </header>
+
+  <main class="legal">
+    <h1>Privacy Policy</h1>
+    <p class="legal__date">SpendLens · Last updated 20 June 2026</p>
+
+    <p class="tldr"><strong>The short version:</strong> SpendLens runs <strong>100% in your browser</strong>. Your bank statement is parsed on your own device. It does not collect, upload, store remotely, sell, or transmit any of your data. There are no accounts, no analytics, and no servers that receive your financial data.</p>
+
+    <h2>What SpendLens does</h2>
+    <p>You choose a bank-statement file (CSV, Excel, PDF, or Word). SpendLens reads it in your browser, breaks the transactions down by payment type and category, finds recurring payments, and charts your cash flow. All of this happens locally — the file is never sent anywhere.</p>
+
+    <h2>What it accesses — and why</h2>
+    <ul>
+      <li><strong>The file you select</strong> — read in your browser only, to extract and categorize the transactions. It is not uploaded.</li>
+      <li><strong>A password you enter for an encrypted PDF</strong> — used solely to decrypt the PDF locally, in your browser. It is never transmitted or stored.</li>
+    </ul>
+
+    <h2>What it stores</h2>
+    <p>Only on your device, via the browser's <code>localStorage</code>:</p>
+    <ul>
+      <li>Your <strong>category overrides</strong> — when you re-categorize a merchant, so it's remembered next time.</li>
+    </ul>
+    <p>Your statement itself is held only in memory while the page is open and is discarded when you close or reload it. None of it is ever sent off your device.</p>
+
+    <h2>What it does NOT do</h2>
+    <ul>
+      <li>No data collection, no upload, no transmission to any server we run, no selling or sharing of data.</li>
+      <li>No accounts, sign-in, tracking, advertising, or third-party analytics.</li>
+      <li>No external requests with your data — parsing libraries are bundled with the app and run locally.</li>
+    </ul>
+
+    <h2>Hosting</h2>
+    <p>The site is static hosting (Cloudflare Pages). Standard web-server access logs may record that a page was visited, but they contain none of your statement data — that never leaves your browser.</p>
+
+    <h2>Children</h2>
+    <p>SpendLens is a general-purpose financial tool and is not directed at children. It collects no personal data from anyone.</p>
+
+    <h2>Changes</h2>
+    <p>If this policy changes, the updated version will be posted here with a new date.</p>
+
+    <h2>Contact</h2>
+    <p>Questions? Open an issue at <a href="https://github.com/sorapallivenkatesh/toolwizhub-spendlens" target="_blank" rel="noopener">github.com/sorapallivenkatesh/toolwizhub-spendlens</a>.</p>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img class="footer__logo" src="assets/logo-horizontal.webp" alt="ToolWizHub" />
+        <p>Free, no-signup web tools — privacy-first, open, and instant.</p>
+        <span class="footer__pill">All free · No signup</span>
+      </div>
+      <div class="footer__cols">
+        <div class="footer__col">
+          <h4>Tools</h4>
+          <a href="https://netlens.toolwizhub.com" target="_blank" rel="noopener">NetLens</a>
+          <a href="https://tickbox.toolwizhub.com" target="_blank" rel="noopener">Tickbox</a>
+          <a href="https://tax.toolwizhub.com" target="_blank" rel="noopener">Tax Calculator</a>
+          <a href="https://pii.toolwizhub.com" target="_blank" rel="noopener">PII Scanner</a>
+        </div>
+        <div class="footer__col">
+          <h4>Project</h4>
+          <a href="/">SpendLens</a>
+          <a href="https://toolwizhub.com" target="_blank" rel="noopener">ToolWizHub</a>
+          <a href="https://github.com/sorapallivenkatesh/toolwizhub-spendlens" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bar">
+      <span class="footer__copy">© <span id="year">2026</span> ToolWizHub · 100% local</span>
+      <span class="footer__made">Crafted with a bit of magic 🪄</span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var nav = document.getElementById("nav"), t = document.getElementById("nav-toggle"), l = document.getElementById("nav-links");
+      if (t && nav) t.addEventListener("click", function () { t.setAttribute("aria-expanded", String(nav.classList.toggle("is-open"))); });
+      if (l) l.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { nav.classList.remove("is-open"); }); });
+      var y = document.getElementById("year"); if (y) y.textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>

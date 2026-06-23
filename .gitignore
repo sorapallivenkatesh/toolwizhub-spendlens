@@ -1,0 +1,16 @@
+# OS / editor
+.DS_Store
+.vscode/
+*.log
+
+# deps (none; parser libs are vendored in lib/)
+node_modules/
+
+# Claude / local
+.claude/
+CLAUDE.md
+
+# packaging / store
+*.zip
+dist/
+store/*

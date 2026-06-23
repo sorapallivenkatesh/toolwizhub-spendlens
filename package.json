@@ -1,0 +1,10 @@
+{
+  "name": "toolwizhub-spendlens",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "SpendLens — analyze any bank statement (CSV/Excel/PDF/Word) in your browser: segregate payment types, categorize spending, find recurring payments. 100% local.",
+  "scripts": {
+    "site": "python3 -m http.server 8092"
+  }
+}
